@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 @Slf4j
 public class AuthTokenAspect {
+
     /**
      * 配置加上自定义注解的方法为切点
      *
@@ -27,36 +28,36 @@ public class AuthTokenAspect {
      */
     @Pointcut("@annotation(authToken)")
     public void doAuthToken(AuthToken authToken) {
-
     }
+
     @Around(value = "doAuthToken(authToken)", argNames = "pjp,authToken")
     public Object doAround(ProceedingJoinPoint pjp, AuthToken authToken) throws Throwable {
         ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        assert sra != null;
         HttpServletRequest request = sra.getRequest();
         //取得注解中的role_name的值
         String[] roleNames = authToken.role_name();
+        //没有role的值
         if (roleNames.length <= 1) {
-            //只需要认证（登录）
+            //只需要认证(登录)
             String id = request.getHeader("id");
-            //id不为空,调用目标方法
+            //如果id为空，可以调用目标方法
             if (id != null) {
                 return pjp.proceed();
             }
-            //id为空,证明用户没有登录
             return "请先登录";
-
         } else {
             //验证身份
             String role = request.getHeader("role");
             log.info(role);
-            for (String roleName : roleNames
-            ) {
+            //遍历roleName数组，匹配role
+            for (String roleName : roleNames) {
                 if (roleName.equals(role)) {
+                    //身份匹配成功，调用目标方法
                     return pjp.proceed();
                 }
             }
             return "权限不足，无法访问";
         }
-        //取得请求头中的值
     }
 }
