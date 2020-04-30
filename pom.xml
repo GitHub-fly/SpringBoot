@@ -8,10 +8,10 @@
         <version>2.2.6.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.soft1851</groupId>
-    <artifactId>spring-boot-aop</artifactId>
+    <groupId>com.soft851</groupId>
+    <artifactId>spring-boot-mybatis-plus</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring-boot-aop</name>
+    <name>spring-boot-mybatis-plus</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -23,10 +23,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>

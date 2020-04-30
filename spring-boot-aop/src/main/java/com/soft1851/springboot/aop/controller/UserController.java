@@ -1,14 +1,20 @@
 package com.soft1851.springboot.aop.controller;
 
 import com.soft1851.springboot.aop.annotation.AuthToken;
+import com.soft1851.springboot.aop.util.ResponseObject;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ResourceBundle;
 
 /**
  * @author xunmi
  */
 @RestController
+@RequestMapping(value = "/api/")
 @Slf4j
 public class UserController {
     /**

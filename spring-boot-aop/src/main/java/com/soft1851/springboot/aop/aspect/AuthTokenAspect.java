@@ -35,25 +35,25 @@ public class AuthTokenAspect {
         ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         assert sra != null;
         HttpServletRequest request = sra.getRequest();
-        //取得注解中的role_name的值
+        // 取得注解中的 role_name 的值
         String[] roleNames = authToken.role_name();
         //没有role的值
         if (roleNames.length <= 1) {
-            //只需要认证(登录)
+            // 只需要认证(登录)
             String id = request.getHeader("id");
-            //如果id为空，可以调用目标方法
+            // 如果 id 不为空，可以调用目标方法
             if (id != null) {
                 return pjp.proceed();
             }
             return "请先登录";
         } else {
-            //验证身份
+            // 验证身份
             String role = request.getHeader("role");
             log.info(role);
-            //遍历roleName数组，匹配role
+            // 遍历 roleName 数组，匹配 role
             for (String roleName : roleNames) {
                 if (roleName.equals(role)) {
-                    //身份匹配成功，调用目标方法
+                    // 身份匹配成功，调用目标方法
                     return pjp.proceed();
                 }
             }

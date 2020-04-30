@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.soft1851.springbootmybatisplus.mapper.SysUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.soft1851.springbootmybatisplus.model.SysUser">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="account" property="account"/>
+        <result column="password" property="password"/>
+        <result column="avatar" property="avatar"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <!--    <sql id="Base_Column_List">-->
+    <!--        id, name, account, password, avatar, create_time-->
+    <!--    </sql>-->
+    <select id="getPermissionByUserId" parameterType="string" resultType="string">
+        SELECT name
+        FROM sys_permission
+        WHERE parent_id IN (
+        SELECT permission_id
+        FROM sys_rp
+        WHERE role_id = (
+        SELECT role_id
+        FROM sys_ur
+        WHERE user_id = #{id}
+        )
+        )
+    </select>
+
+</mapper>
